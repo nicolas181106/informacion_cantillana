@@ -75,15 +75,15 @@ import busData from "../data/buses.json";
 				id="transport-switcher"
 			>
 				<button
-					class="relative z-10 px-6 py-2.5 text-sm font-bold transition-colors switcher-btn active"
+					class="relative z-20 flex-1 px-6 py-3 text-sm font-bold transition-colors switcher-btn active cursor-pointer touch-manipulation"
 					data-target="m216">Bus M-216 (Sevilla)</button
 				>
 				<button
-					class="relative z-10 px-6 py-2.5 text-sm font-bold transition-colors switcher-btn"
+					class="relative z-20 flex-1 px-6 py-3 text-sm font-bold transition-colors switcher-btn cursor-pointer touch-manipulation"
 					data-target="minibus">Minibús (Estación)</button
 				>
 				<div
-					class="absolute top-1.5 left-1.5 bottom-1.5 w-[calc(50%-0.375rem)] bg-white rounded-full shadow-lg transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] switcher-indicator translate-x-0"
+					class="absolute top-1.5 left-1.5 bottom-1.5 w-[calc(50%-0.375rem)] bg-white rounded-full shadow-lg transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] switcher-indicator translate-x-0 pointer-events-none"
 					id="indicator"
 				>
 				</div>
@@ -109,67 +109,56 @@ import busData from "../data/buses.json";
 
 <script is:inline>
 	function initSwitcher() {
-		const switcherBtns = document.querySelectorAll(".switcher-btn");
+		const switcherContainer = document.getElementById("transport-switcher");
+		if (!switcherContainer) return;
+
 		const tabContents = document.querySelectorAll(".tab-content");
-		const indicator = document.getElementById("indicator");
+		const buttons = switcherContainer.querySelectorAll(".switcher-btn");
+		const indicator = switcherContainer.querySelector("#indicator");
 
-		switcherBtns.forEach((btn) => {
-			btn.addEventListener("click", () => {
-				const target = btn.getAttribute("data-target");
+		// Single listener on the container
+		switcherContainer.onclick = (e) => {
+			const btn = e.target.closest(".switcher-btn");
+			if (!btn) return;
 
-				// Update buttons
-				switcherBtns.forEach((b) =>
-					b.classList.remove("active", "text-primary"),
-				);
-				switcherBtns.forEach((b) => b.classList.add("text-slate-500"));
-				btn.classList.add("active", "text-primary");
-				btn.classList.remove("text-slate-500");
+			const target = btn.getAttribute("data-target");
 
-				// Update content
-				tabContents.forEach((content) => {
-					if (content.id === `content-${target}`) {
-						content.classList.remove(
-							"hidden",
-							"opacity-0",
-							"scale-95",
-						);
-						content.classList.add(
-							"block",
-							"opacity-100",
-							"scale-100",
-						);
-					} else {
-						content.classList.add(
-							"hidden",
-							"opacity-0",
-							"scale-95",
-						);
-						content.classList.remove(
-							"block",
-							"opacity-100",
-							"scale-100",
-						);
-					}
-				});
+			// Update buttons
+			buttons.forEach((b) => {
+				b.classList.remove("active", "text-primary");
+				b.classList.add("text-slate-500");
+			});
+			btn.classList.add("active", "text-primary");
+			btn.classList.remove("text-slate-500");
 
-				// Update indicator position
-				if (indicator) {
-					indicator.style.transform =
-						target === "minibus"
-							? "translateX(100%)"
-							: "translateX(0%)";
+			// Update content
+			tabContents.forEach((content) => {
+				if (content.id === `content-${target}`) {
+					content.classList.remove("hidden", "opacity-0", "scale-95");
+					content.classList.add("block", "opacity-100", "scale-100");
+				} else {
+					content.classList.add("hidden", "opacity-0", "scale-95");
+					content.classList.remove("block", "opacity-100", "scale-100");
 				}
 			});
-		});
 
-		// Set initial active text
-		document
-			.querySelector(".switcher-btn.active")
-			.classList.add("text-primary");
+			// Update indicator position
+			if (indicator) {
+				indicator.style.transform = target === "minibus" ? "translateX(100%)" : "translateX(0%)";
+			}
+		};
 	}
 
+	// Initialize
 	initSwitcher();
-	document.addEventListener("astro:after-swap", initSwitcher);
+	
+	// Prevent double listeners on global object
+	if (!window.switcherEventSet) {
+		document.addEventListener("astro:after-swap", () => {
+			initSwitcher();
+		});
+		window.switcherEventSet = true;
+	}
 </script>
 
 <style>

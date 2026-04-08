@@ -45,7 +45,7 @@ interface Props {
   <!-- Mobile Menu Drawer -->
   <div
     id="mobile-menu"
-    class="invisible opacity-0 -translate-y-4 md:hidden mt-3 mx-auto max-w-7xl glass-panel p-8 shadow-2xl transition-all duration-300 ease-out z-50 pointer-events-none"
+    class="hidden opacity-0 -translate-y-4 md:hidden mt-3 mx-auto max-w-7xl glass-panel p-8 shadow-2xl transition-all duration-300 ease-out z-50 pointer-events-none"
   >
     <div class="flex flex-col gap-8">
       <a href="/" class="mobile-link text-xl font-black text-slate-600 hover:text-primary transition-colors border-b-2 border-slate-100 pb-3">Transporte</a>
@@ -59,43 +59,54 @@ interface Props {
   function setupMenu() {
     const menuButton = document.getElementById("mobile-menu-button");
     const mobileMenu = document.getElementById("mobile-menu");
-    const iconMenu = document.getElementById("icon-menu");
-    const iconClose = document.getElementById("icon-close");
     const mobileLinks = document.querySelectorAll(".mobile-link");
 
     if (!menuButton || !mobileMenu) return;
 
     let isOpen = false;
 
+    // Clean up old listener if exists by cloning
+    const newBtn = menuButton.cloneNode(true);
+    menuButton.parentNode.replaceChild(newBtn, menuButton);
+
+    // Re-select internal icons from the new button
+    const newIconMenu = newBtn.querySelector("#icon-menu");
+    const newIconClose = newBtn.querySelector("#icon-close");
+
     function toggleMenu() {
       isOpen = !isOpen;
       
       if (isOpen) {
         // OPEN
-        mobileMenu.classList.remove("invisible", "opacity-0", "-translate-y-4", "pointer-events-none");
-        mobileMenu.classList.add("visible", "opacity-100", "translate-y-0", "pointer-events-auto");
-        
-        iconMenu.classList.remove("scale-100", "opacity-100", "rotate-0");
-        iconMenu.classList.add("scale-50", "opacity-0", "-rotate-90");
-        
-        iconClose.classList.remove("scale-50", "opacity-0", "rotate-90");
-        iconClose.classList.add("scale-100", "opacity-100", "rotate-0");
+        mobileMenu.classList.remove("hidden");
+        // Wait for next frame to start animation
+        requestAnimationFrame(() => {
+          mobileMenu.classList.remove("opacity-0", "-translate-y-4", "pointer-events-none");
+          mobileMenu.classList.add("opacity-100", "translate-y-0", "pointer-events-auto");
+          
+          newIconMenu.classList.remove("scale-100", "opacity-100", "rotate-0");
+          newIconMenu.classList.add("scale-50", "opacity-0", "-rotate-90");
+          
+          newIconClose.classList.remove("scale-50", "opacity-0", "rotate-90");
+          newIconClose.classList.add("scale-100", "opacity-100", "rotate-0");
+        });
       } else {
         // CLOSE
-        mobileMenu.classList.remove("visible", "opacity-100", "translate-y-0", "pointer-events-auto");
-        mobileMenu.classList.add("invisible", "opacity-0", "-translate-y-4", "pointer-events-none");
+        mobileMenu.classList.remove("opacity-100", "translate-y-0", "pointer-events-auto");
+        mobileMenu.classList.add("opacity-0", "-translate-y-4", "pointer-events-none");
         
-        iconMenu.classList.remove("scale-50", "opacity-0", "-rotate-90");
-        iconMenu.classList.add("scale-100", "opacity-100", "rotate-0");
+        newIconMenu.classList.remove("scale-50", "opacity-0", "-rotate-90");
+        newIconMenu.classList.add("scale-100", "opacity-100", "rotate-0");
         
-        iconClose.classList.remove("scale-100", "opacity-100", "rotate-0");
-        iconClose.classList.add("scale-50", "opacity-0", "rotate-90");
+        newIconClose.classList.remove("scale-100", "opacity-100", "rotate-0");
+        newIconClose.classList.add("scale-50", "opacity-0", "rotate-90");
+        
+        // Wait for transition to finish before hiding
+        setTimeout(() => {
+          if (!isOpen) mobileMenu.classList.add("hidden");
+        }, 300);
       }
     }
-
-    // Clean up old listener if exists
-    const newBtn = menuButton.cloneNode(true);
-    menuButton.parentNode.replaceChild(newBtn, menuButton);
 
     newBtn.addEventListener("click", (e) => {
       e.stopPropagation();
