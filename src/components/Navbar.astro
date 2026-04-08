@@ -26,52 +26,99 @@ interface Props {
     <!-- Mobile Menu Button -->
     <button
       id="mobile-menu-button"
-      class="md:hidden p-2 text-slate-600 hover:text-primary transition-colors"
-      aria-label="Menú"
+      class="md:hidden p-2 text-slate-600 hover:text-primary transition-colors relative z-[60]"
+      aria-label="Alternar menú"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-8 w-8"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 6h16M4 12h16m-7 6h7"
-        />
-      </svg>
+      <div id="icon-menu" class="transition-all duration-300 transform scale-100 opacity-100">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+      </div>
+      <div id="icon-close" class="absolute inset-0 p-2 transition-all duration-300 transform scale-50 opacity-0 rotate-90">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </div>
     </button>
   </nav>
 
   <!-- Mobile Menu Drawer -->
   <div
     id="mobile-menu"
-    class="hidden md:hidden mt-2 mx-auto max-w-7xl glass-panel p-8 animate-fade shadow-2xl"
+    class="invisible opacity-0 -translate-y-4 md:hidden mt-3 mx-auto max-w-7xl glass-panel p-8 shadow-2xl transition-all duration-300 ease-out z-50 pointer-events-none"
   >
     <div class="flex flex-col gap-8">
-      <a href="/" class="text-xl font-black text-slate-600 hover:text-primary transition-colors border-b-2 border-slate-100 pb-3">Transporte</a>
-      <a href="/farmacia" class="text-xl font-black text-slate-600 hover:text-primary transition-colors border-b-2 border-slate-100 pb-3">Farmacias</a>
-      <a href="/farmacia" class="btn-primary justify-center py-5 text-base">Ver Guardia Hoy</a>
+      <a href="/" class="mobile-link text-xl font-black text-slate-600 hover:text-primary transition-colors border-b-2 border-slate-100 pb-3">Transporte</a>
+      <a href="/farmacia" class="mobile-link text-xl font-black text-slate-600 hover:text-primary transition-colors border-b-2 border-slate-100 pb-3">Farmacias</a>
+      <a href="/farmacia" class="mobile-link btn-primary justify-center py-5 text-base">Ver Guardia Hoy</a>
     </div>
   </div>
 </header>
 
 <script is:inline>
-  function initMenu() {
+  function setupMenu() {
     const menuButton = document.getElementById("mobile-menu-button");
     const mobileMenu = document.getElementById("mobile-menu");
+    const iconMenu = document.getElementById("icon-menu");
+    const iconClose = document.getElementById("icon-close");
+    const mobileLinks = document.querySelectorAll(".mobile-link");
 
-    if (menuButton && mobileMenu) {
-      menuButton.addEventListener("click", () => {
-        mobileMenu.classList.toggle("hidden");
-      });
+    if (!menuButton || !mobileMenu) return;
+
+    let isOpen = false;
+
+    function toggleMenu() {
+      isOpen = !isOpen;
+      
+      if (isOpen) {
+        // OPEN
+        mobileMenu.classList.remove("invisible", "opacity-0", "-translate-y-4", "pointer-events-none");
+        mobileMenu.classList.add("visible", "opacity-100", "translate-y-0", "pointer-events-auto");
+        
+        iconMenu.classList.remove("scale-100", "opacity-100", "rotate-0");
+        iconMenu.classList.add("scale-50", "opacity-0", "-rotate-90");
+        
+        iconClose.classList.remove("scale-50", "opacity-0", "rotate-90");
+        iconClose.classList.add("scale-100", "opacity-100", "rotate-0");
+      } else {
+        // CLOSE
+        mobileMenu.classList.remove("visible", "opacity-100", "translate-y-0", "pointer-events-auto");
+        mobileMenu.classList.add("invisible", "opacity-0", "-translate-y-4", "pointer-events-none");
+        
+        iconMenu.classList.remove("scale-50", "opacity-0", "-rotate-90");
+        iconMenu.classList.add("scale-100", "opacity-100", "rotate-0");
+        
+        iconClose.classList.remove("scale-100", "opacity-100", "rotate-0");
+        iconClose.classList.add("scale-50", "opacity-0", "rotate-90");
+      }
     }
+
+    // Clean up old listener if exists
+    const newBtn = menuButton.cloneNode(true);
+    menuButton.parentNode.replaceChild(newBtn, menuButton);
+
+    newBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    // Close when clicking a link
+    mobileLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        if (isOpen) toggleMenu();
+      });
+    });
+
+    // Close when clicking outside
+    document.addEventListener("click", (e) => {
+      if (isOpen && !mobileMenu.contains(e.target) && !newBtn.contains(e.target)) {
+        toggleMenu();
+      }
+    });
   }
-  
-  // Initialize on load and after swaps (Astro view transitions)
-  initMenu();
-  document.addEventListener("astro:after-swap", initMenu);
+
+  // Initial load
+  setupMenu();
+  // Support for View Transitions
+  document.addEventListener("astro:after-swap", setupMenu);
 </script>
