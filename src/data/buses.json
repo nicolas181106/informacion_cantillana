@@ -1,0 +1,59 @@
+{
+  "minibus": {
+    "id": "minibus",
+    "name": "Minibús: Cantillana - Estación",
+    "operator": "Ayuntamiento de Cantillana",
+    "info": "Horarios coordinados con salidas/llegadas de trenes. Paradas: Kiosco Castaño, La Presa, Estación FF.CC.",
+    "schedules": [
+      {
+        "days": "Lunes a Viernes",
+        "directions": {
+          "Cantillana ➔ Estación": [
+            "06:45", "07:10", "07:40", "08:13", "08:40", "09:05", "09:30", "10:30", 
+            "11:30", "12:15", "12:40", "13:37", "14:40", "15:00", "15:30", "15:55", 
+            "16:30", "18:00", "18:30", "19:00", "19:45", "20:19", "20:40", "21:19", 
+            "22:00", "22:45"
+          ],
+          "Estación ➔ Cantillana": [
+            "07:00", "07:30", "07:45", "08:20", "08:49", "09:20", "09:53", "10:32", 
+            "12:05", "12:30", "13:40", "14:02", "14:45", "15:02", "15:37", "16:07", 
+            "17:05", "18:06", "18:32", "19:28", "20:09", "20:27", "21:04", "21:27", 
+            "22:08", "23:08"
+          ]
+        }
+      }
+    ]
+  },
+  "m216": {
+    "id": "m216",
+    "name": "Línea M-216: Cantillana - Sevilla",
+    "operator": "Autobuses Paulino",
+    "info": "Horarios aproximados sujetos al tráfico. Conectando con San José R., Brenes y Villaverde del Río.",
+    "schedules": [
+      {
+        "days": "Lunes a Viernes",
+        "directions": {
+          "Cantillana ➔ Sevilla": [
+            "06:00", "06:45", "07:40", "08:00", "09:00", "10:00", "11:00", "12:00", 
+            "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00"
+          ],
+          "Sevilla ➔ Cantillana": [
+            "06:50", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", 
+            "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"
+          ]
+        }
+      },
+      {
+        "days": "Sábados, Domingos y Festivos",
+        "directions": {
+          "Cantillana ➔ Sevilla": [
+            "07:00", "09:00", "11:00", "13:00", "15:00", "17:00", "19:00", "21:00"
+          ],
+          "Sevilla ➔ Cantillana": [
+            "08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"
+          ]
+        }
+      }
+    ]
+  }
+}

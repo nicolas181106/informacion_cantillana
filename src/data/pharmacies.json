@@ -1,0 +1,64 @@
+{
+  "pharmacies": {
+    "CTR. DE LORA": {
+      "name": "Farmacia Ctra. de Lora (Lda. Ramos)",
+      "address": "Ctra. de Lora, 2",
+      "phone": "955 73 01 27",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Farmacia+Ctra+Lora+2+Cantillana"
+    },
+    "CALLE MURILLO": {
+      "name": "Farmacia Calle Murillo (Lda. Soriano)",
+      "address": "C. Murillo, 2",
+      "phone": "955 73 13 46",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Farmacia+Calle+Murillo+2+Cantillana"
+    },
+    "NTRO. P. JESUS": {
+      "name": "Farmacia Ntro. P. Jesús (Lda. Naranjo)",
+      "address": "C. Nuestro Padre Jesús, 2",
+      "phone": "955 73 00 24",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Farmacia+Nuestro+Padre+Jesus+2+Cantillana"
+    },
+    "ADOLFO SUAREZ": {
+      "name": "Farmacia Adolfo Suárez (Lda. Pérez)",
+      "address": "Av. Adolfo Suárez, 1",
+      "phone": "955 73 08 61",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Farmacia+Adolfo+Suarez+1+Cantillana"
+    }
+  },
+  "calendar": {
+    "month": "Abril",
+    "year": 2026,
+    "days": {
+      "1": "CTR. DE LORA",
+      "2": "CALLE MURILLO",
+      "3": "NTRO. P. JESUS",
+      "4": "NTRO. P. JESUS",
+      "5": "NTRO. P. JESUS",
+      "6": "ADOLFO SUAREZ",
+      "7": "CTR. DE LORA",
+      "8": "CALLE MURILLO",
+      "9": "NTRO. P. JESUS",
+      "10": "ADOLFO SUAREZ",
+      "11": "ADOLFO SUAREZ",
+      "12": "ADOLFO SUAREZ",
+      "13": "CTR. DE LORA",
+      "14": "CALLE MURILLO",
+      "15": "NTRO. P. JESUS",
+      "16": "ADOLFO SUAREZ",
+      "17": "CTR. DE LORA",
+      "18": "CTR. DE LORA",
+      "19": "CTR. DE LORA",
+      "20": "CALLE MURILLO",
+      "21": "NTRO. P. JESUS",
+      "22": "ADOLFO SUAREZ",
+      "23": "CTR. DE LORA",
+      "24": "CALLE MURILLO",
+      "25": "CALLE MURILLO",
+      "26": "CALLE MURILLO",
+      "27": "NTRO. P. JESUS",
+      "28": "ADOLFO SUAREZ",
+      "29": "CTR. DE LORA",
+      "30": "CALLE MURILLO"
+    }
+  }
+}

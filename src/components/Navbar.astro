@@ -1,0 +1,77 @@
+---
+interface Props {
+  // Add props if needed
+}
+---
+
+<header class="fixed top-0 z-50 w-full px-4 sm:px-6 lg:px-8 pt-4 pb-4" transition:persist="navbar">
+  <nav class="glass-panel mx-auto max-w-7xl flex items-center justify-between px-6 py-4 shadow-xl shadow-black/5">
+    <a href="/" class="flex items-center gap-3 group">
+      <img
+        src="/logo.png"
+        alt="Logo"
+        class="w-10 h-10 transition-transform group-hover:scale-110"
+      />
+      <span class="text-xl font-bold text-primary tracking-tight">
+        Cantillana<span class="text-secondary">Digital</span>
+      </span>
+    </a>
+    
+    <div class="hidden md:flex items-center gap-8 text-[15px]">
+      <a href="/" class="font-bold text-slate-600 hover:text-primary transition-all">Transporte</a>
+      <a href="/farmacia" class="font-bold text-slate-600 hover:text-primary transition-all">Farmacias</a>
+      <a href="/farmacia" class="btn-primary py-2 px-5 text-[13px]">Guardia Hoy</a>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button
+      id="mobile-menu-button"
+      class="md:hidden p-2 text-slate-600 hover:text-primary transition-colors"
+      aria-label="Menú"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-8 w-8"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16m-7 6h7"
+        />
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu Drawer -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden mt-2 mx-auto max-w-7xl glass-panel p-8 animate-fade shadow-2xl"
+  >
+    <div class="flex flex-col gap-8">
+      <a href="/" class="text-xl font-black text-slate-600 hover:text-primary transition-colors border-b-2 border-slate-100 pb-3">Transporte</a>
+      <a href="/farmacia" class="text-xl font-black text-slate-600 hover:text-primary transition-colors border-b-2 border-slate-100 pb-3">Farmacias</a>
+      <a href="/farmacia" class="btn-primary justify-center py-5 text-base">Ver Guardia Hoy</a>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  function initMenu() {
+    const menuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    if (menuButton && mobileMenu) {
+      menuButton.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+    }
+  }
+  
+  // Initialize on load and after swaps (Astro view transitions)
+  initMenu();
+  document.addEventListener("astro:after-swap", initMenu);
+</script>
