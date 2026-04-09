@@ -1,10 +1,44 @@
 ---
 import pharmData from '../data/pharmacies.json';
 
-const today = new Date();
-const day = today.getDate().toString();
-const month = today.getMonth() + 1;
-const year = today.getFullYear();
+// Get current date and time in Cantillana (Europe/Madrid)
+const now = new Date();
+const config = { 
+  timeZone: 'Europe/Madrid', 
+  year: 'numeric', 
+  month: 'numeric', 
+  day: 'numeric', 
+  hour: 'numeric', 
+  minute: 'numeric', 
+  hour12: false 
+};
+
+// @ts-ignore - Intl.DateTimeFormat is standard but needs type casting in some environments
+const formatter = new Intl.DateTimeFormat('es-ES', config);
+const parts = formatter.formatToParts(now);
+
+const getPart = (type: string) => parts.find(p => p.type === type)?.value || '';
+let dayInt = parseInt(getPart('day'));
+let monthInt = parseInt(getPart('month'));
+let yearInt = parseInt(getPart('year'));
+const hourInt = parseInt(getPart('hour'));
+const minuteInt = parseInt(getPart('minute'));
+
+// Turn shift logic: shifts start at 09:30 AM and end at 09:30 AM the next day.
+// If it's before 09:30, we're still in the previous day's shift.
+if (hourInt < 9 || (hourInt === 9 && minuteInt < 30)) {
+  const yesterday = new Date(now);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yParts = formatter.formatToParts(yesterday);
+  const getYPart = (type: string) => yParts.find(p => p.type === type)?.value || '';
+  dayInt = parseInt(getYPart('day'));
+  monthInt = parseInt(getYPart('month'));
+  yearInt = parseInt(getYPart('year'));
+}
+
+const day = dayInt.toString();
+const month = monthInt;
+const year = yearInt;
 
 const isApril2026 = month === 4 && year === 2026;
 const pharmacyKey = isApril2026 ? pharmData.calendar.days[day as keyof typeof pharmData.calendar.days] : null;
