@@ -1,0 +1,169 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+export const prerender = true;
+---
+
+<Layout
+	title="Punto Limpio"
+	description="Información sobre el Punto Limpio de Cantillana: horarios, ubicación y residuos aceptados."
+>
+	<!-- Hero Section -->
+	<section class="relative bg-primary overflow-hidden pt-36 pb-24 sm:pt-44 sm:pb-32 -mt-2">
+		<div class="mx-auto max-w-7xl px-6 lg:px-8 text-center relative z-10">
+			<div
+				class="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-secondary bg-white/10 mb-8 border border-white/10 backdrop-blur-sm animate-fade"
+			>
+				Gestión de Residuos
+			</div>
+			<h1
+				class="text-4xl font-extrabold tracking-tight text-white sm:text-6xl mb-8 leading-tight"
+			>
+				Punto Limpio de <span class="text-secondary">Cantillana</span>
+			</h1>
+			<p
+				class="mx-auto max-w-2xl text-lg opacity-90 text-slate-100 mb-10 leading-relaxed"
+			>
+				Instalación municipal destinada a la recogida selectiva de residuos domésticos 
+				que no deben depositarse en los contenedores habituales.
+			</p>
+			<div class="flex flex-col sm:flex-row gap-4 justify-center">
+				<a
+					href="#informacion"
+					class="bg-secondary text-primary px-8 py-4 rounded-full font-bold shadow-xl shadow-secondary/20 hover:-translate-y-1 transition-all"
+					>Ver Horarios y Ubicación</a
+				>
+				<a
+					href="/"
+					class="bg-white/10 text-white border border-white/20 backdrop-blur-md px-8 py-4 rounded-full font-bold hover:bg-white/20 transition-all"
+					>Volver al Inicio</a
+				>
+			</div>
+		</div>
+		<!-- Decorative blobs -->
+		<div
+			class="absolute -top-24 -left-20 w-96 h-96 bg-secondary/10 rounded-full blur-3xl pointer-events-none"
+		>
+		</div>
+		<div
+			class="absolute -bottom-24 -right-20 w-96 h-96 bg-primary-light/30 rounded-full blur-3xl pointer-events-none"
+		>
+		</div>
+	</section>
+
+	<!-- Content Section -->
+	<section id="informacion" class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-20">
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+			
+			<!-- Left Column: Info Cards -->
+			<div class="space-y-8">
+				<!-- Schedule Card -->
+				<div class="glass-panel p-8 border-l-4 border-l-secondary">
+					<div class="flex items-center gap-4 mb-6">
+						<div class="bg-secondary/20 p-3 rounded-xl text-secondary">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+						</div>
+						<h2 class="text-2xl font-bold text-primary">Horarios</h2>
+					</div>
+					<div class="space-y-4 text-slate-600">
+						<div class="flex justify-between items-center border-b border-slate-100 pb-2">
+							<span class="font-medium">Lunes a Viernes</span>
+							<span class="text-primary font-bold">09:00 - 13:00 y 15:30 - 18:30</span>
+						</div>
+						<div class="flex justify-between items-center">
+							<span class="font-medium">Sábados</span>
+							<span class="text-primary font-bold">09:00 - 14:00</span>
+						</div>
+						<p class="text-xs text-slate-400 mt-4 italic">
+							* Horario actualizado a marzo de 2026. Puede variar según la temporada (invierno/verano).
+						</p>
+					</div>
+				</div>
+
+				<!-- Location Card -->
+				<div class="glass-panel p-8 border-l-4 border-l-primary">
+					<div class="flex items-center gap-4 mb-6">
+						<div class="bg-primary/10 p-3 rounded-xl text-primary">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+							</svg>
+						</div>
+						<h2 class="text-2xl font-bold text-primary">Ubicación</h2>
+					</div>
+					<p class="text-slate-600 mb-4">
+						C/ Alfareros esq. C/ Carboneros<br/>
+						Polígono Industrial San Sebastián<br/>
+						Cantillana, Sevilla.
+					</p>
+					<div class="bg-slate-100 rounded-xl h-48 w-full flex items-center justify-center text-slate-400 overflow-hidden relative group">
+                        <!-- Placeholder for map - in a real app would be an iframe or dynamic map -->
+                        <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=800&q=80" alt="Mapa" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-110 transition-transform duration-700" />
+                        <span class="relative z-10 font-bold bg-white/80 px-4 py-2 rounded-full border border-slate-200 shadow-sm">Ver en Google Maps</span>
+                        <a href="https://www.google.com/maps/search/Punto+Limpio+Cantillana+Alfareros" target="_blank" rel="noopener noreferrer" class="absolute inset-0 z-20"></a>
+                    </div>
+				</div>
+			</div>
+
+			<!-- Right Column: Rules & Info -->
+			<div class="space-y-8">
+				<div class="glass-panel p-8">
+					<h3 class="text-xl font-bold text-primary mb-6 flex items-center gap-2">
+                        <span class="text-secondary">●</span> ¿Qué puedes traer?
+                    </h3>
+					<ul class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+						<li class="flex items-start gap-2 text-slate-600">
+							<span class="text-secondary mt-1">✓</span> Muebles y enseres
+						</li>
+						<li class="flex items-start gap-2 text-slate-600">
+							<span class="text-secondary mt-1">✓</span> Electrodomésticos
+						</li>
+						<li class="flex items-start gap-2 text-slate-600">
+							<span class="text-secondary mt-1">✓</span> Escombros de obras menores
+						</li>
+						<li class="flex items-start gap-2 text-slate-600">
+							<span class="text-secondary mt-1">✓</span> Pinturas y disolventes
+						</li>
+						<li class="flex items-start gap-2 text-slate-600">
+							<span class="text-secondary mt-1">✓</span> Aceites usados
+						</li>
+						<li class="flex items-start gap-2 text-slate-600">
+							<span class="text-secondary mt-1">✓</span> Pilas y baterías
+						</li>
+					</ul>
+				</div>
+
+                <div class="bg-amber-50 border-2 border-amber-100 rounded-2xl p-8 relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-bold text-amber-900 mb-4 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                            Detalles Importantes
+                        </h3>
+                        <div class="space-y-4 text-amber-800/80">
+                            <p>
+                                <strong class="text-amber-900">Uso obligatorio:</strong> Es obligatorio clasificar los residuos y depositarlos en los contenedores correspondientes siguiendo las indicaciones del personal.
+                            </p>
+                            <p>
+                                <strong class="text-amber-900">Prohibición:</strong> Está totalmente prohibido depositar basuras o muebles en la vía pública o en la puerta del punto limpio fuera del horario establecido.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="absolute -right-8 -bottom-8 text-amber-100 opacity-50 transform rotate-12">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="text-center p-6 bg-slate-100 rounded-2xl text-slate-500 text-sm">
+                    <p>Gestionado por la <a href="https://lavegamancomunidad.es" class="text-primary font-bold hover:underline">Mancomunidad de Servicios La Vega</a>.</p>
+                    <p class="mt-2">Teléfono de atención: <a href="tel:955111140" class="font-bold">955 11 11 40</a></p>
+                </div>
+			</div>
+		</div>
+	</section>
+</Layout>
