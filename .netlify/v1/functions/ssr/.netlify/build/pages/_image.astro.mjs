@@ -1,5 +1,5 @@
 import { isRemotePath } from '@astrojs/internal-helpers/path';
-import { t as toStyleString, A as AstroError, N as NoImageMetadata, F as FailedToFetchRemoteImageDimensions, E as ExpectedImageOptions, a as ExpectedImage, b as ExpectedNotESMImage, I as InvalidImageService, c as createComponent, d as createAstro, e as ImageMissingAlt, m as maybeRenderHead, f as addAttribute, s as spreadAttributes, r as renderTemplate, g as ExperimentalFontsNotEnabled, h as FontFamilyNotFound, u as unescapeHTML } from '../chunks/astro/server_COFieLBv.mjs';
+import { t as toStyleString, A as AstroError, N as NoImageMetadata, F as FailedToFetchRemoteImageDimensions, E as ExpectedImageOptions, a as ExpectedImage, b as ExpectedNotESMImage, I as InvalidImageService, c as createAstro, d as createComponent, e as ImageMissingAlt, m as maybeRenderHead, f as addAttribute, s as spreadAttributes, r as renderTemplate, g as ExperimentalFontsNotEnabled, h as FontFamilyNotFound, u as unescapeHTML } from '../chunks/astro/server_Cqj4mRCL.mjs';
 import { isRemoteAllowed } from '@astrojs/internal-helpers/remote';
 import 'clsx';
 import * as mime from 'mrmime';
@@ -1123,7 +1123,7 @@ async function getImage$1(options, imageConfig) {
   };
 }
 
-const $$Astro$2 = createAstro();
+const $$Astro$2 = createAstro("https://informacioncantillana.netlify.app");
 const $$Image = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$2, $$props, $$slots);
   Astro2.self = $$Image;
@@ -1152,7 +1152,7 @@ const $$Image = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`${maybeRenderHead()}<img${addAttribute(image.src, "src")}${spreadAttributes(attributes)}${addAttribute(className, "class")}>`;
 }, "C:/Users/Nicolás/Desktop/TODO/SOFTWARES/PROGRAMACIÓN/VISUAL STUDIO CODE/Mis páginas web/noticiasCantillana/node_modules/astro/components/Image.astro", void 0);
 
-const $$Astro$1 = createAstro();
+const $$Astro$1 = createAstro("https://informacioncantillana.netlify.app");
 const $$Picture = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$1, $$props, $$slots);
   Astro2.self = $$Picture;
@@ -1227,7 +1227,7 @@ const mod = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null
 }, Symbol.toStringTag, { value: 'Module' }));
 
-const $$Astro = createAstro();
+const $$Astro = createAstro("https://informacioncantillana.netlify.app");
 const $$Font = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$Font;
