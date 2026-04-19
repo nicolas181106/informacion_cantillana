@@ -1,28 +1,28 @@
 {
   "pharmacies": {
     "CTR. DE LORA": {
-      "name": "Farmacia Ctra. de Lora (Lda. Ramos)",
-      "address": "Ctra. de Lora, 2",
-      "phone": "955 73 01 27",
-      "maps": "https://www.google.com/maps/search/?api=1&query=Farmacia+Ctra+Lora+2+Cantillana"
+      "name": "Farmacia Ctra. de Lora (Licenciada Arias)",
+      "address": "Ctra. de Lora, 17",
+      "phone": "955 73 18 56",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Farmacia+Ctra+Lora+17+Cantillana"
     },
     "CALLE MURILLO": {
-      "name": "Farmacia Calle Murillo (Lda. Soriano)",
-      "address": "C. Murillo, 2",
-      "phone": "955 73 13 46",
-      "maps": "https://www.google.com/maps/search/?api=1&query=Farmacia+Calle+Murillo+2+Cantillana"
+      "name": "Farmacia Pilar Paredes (Calle Murillo)",
+      "address": "C. Murillo, 17",
+      "phone": "955 73 09 70",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Farmacia+Pilar+Paredes+Cantillana"
     },
     "NTRO. P. JESUS": {
-      "name": "Farmacia Ntro. P. Jesús (Lda. Naranjo)",
-      "address": "C. Nuestro Padre Jesús, 2",
-      "phone": "955 73 00 24",
-      "maps": "https://www.google.com/maps/search/?api=1&query=Farmacia+Nuestro+Padre+Jesus+2+Cantillana"
+      "name": "Farmacia Los Remedios (Arias Pérez)",
+      "address": "C. Nuestro Padre Jesús, 19",
+      "phone": "955 73 13 09",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Farmacia+Los+Remedios+Cantillana"
     },
     "ADOLFO SUAREZ": {
-      "name": "Farmacia Adolfo Suárez (Lda. Pérez)",
-      "address": "Av. Adolfo Suárez, 1",
-      "phone": "955 73 08 61",
-      "maps": "https://www.google.com/maps/search/?api=1&query=Farmacia+Adolfo+Suarez+1+Cantillana"
+      "name": "Farmacia El Llano (Adolfo Suárez)",
+      "address": "C. Pdte. Adolfo Suárez, 6",
+      "phone": "955 73 17 37",
+      "maps": "https://www.google.com/maps/search/?api=1&query=Farmacia+El+Llano+Cantillana"
     }
   },
   "calendar": {
