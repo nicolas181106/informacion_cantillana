@@ -1,7 +1,51 @@
 ---
+import pharmData from '../data/pharmacies.json';
+
 interface Props {
   // Add props if needed
 }
+
+// Lógica para determinar la farmacia de guardia hoy
+const now = new Date();
+const config = { 
+  timeZone: 'Europe/Madrid', 
+  year: 'numeric', 
+  month: 'numeric', 
+  day: 'numeric', 
+  hour: 'numeric', 
+  minute: 'numeric', 
+  hour12: false 
+};
+
+// @ts-ignore
+const formatter = new Intl.DateTimeFormat('es-ES', config);
+const parts = formatter.formatToParts(now);
+const getPart = (type: string) => parts.find(p => p.type === type)?.value || '';
+
+let dayInt = parseInt(getPart('day'));
+let monthInt = parseInt(getPart('month'));
+let yearInt = parseInt(getPart('year'));
+const hourInt = parseInt(getPart('hour'));
+const minuteInt = parseInt(getPart('minute'));
+
+if (hourInt < 9 || (hourInt === 9 && minuteInt < 30)) {
+  const yesterday = new Date(now);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yParts = formatter.formatToParts(yesterday);
+  const getYPart = (type: string) => yParts.find(p => p.type === type)?.value || '';
+  dayInt = parseInt(getYPart('day'));
+  monthInt = parseInt(getYPart('month'));
+  yearInt = parseInt(getYPart('year'));
+}
+
+const isApril2026 = monthInt === 4 && yearInt === 2026;
+const pharmacyKey = isApril2026 ? pharmData.calendar.days[dayInt.toString() as keyof typeof pharmData.calendar.days] : null;
+const activePharmacy = pharmacyKey ? pharmData.pharmacies[pharmacyKey as keyof typeof pharmData.pharmacies] : null;
+
+// Extraer un nombre corto para el botón
+const displayName = activePharmacy 
+  ? activePharmacy.name.split('(')[0].replace('Farmacia ', '').trim() 
+  : 'Guardia Hoy';
 ---
 
 <header class="fixed top-0 z-50 w-full px-4 sm:px-6 lg:px-8 pt-4 pb-4" transition:persist="navbar">
@@ -20,9 +64,11 @@ interface Props {
     <div class="hidden md:flex items-center gap-8 text-[15px]">
       <a href="/" class="font-bold text-slate-600 hover:text-primary transition-all">Inicio</a>
       <a href="/transporte" class="font-bold text-slate-600 hover:text-primary transition-all">Transporte</a>
-      <a href="/farmacia" class="font-bold text-slate-600 hover:text-primary transition-all">Farmacias</a>
       <a href="/punto-limpio" class="font-bold text-slate-600 hover:text-primary transition-all">Punto Limpio</a>
-      <a href="/farmacia" class="btn-primary py-2 px-5 text-[13px]">Guardia Hoy</a>
+      <a href="/farmacia" class="btn-primary py-2 px-5 text-[13px] flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+        Guardia: {displayName}
+      </a>
     </div>
 
     <!-- Mobile Menu Button -->
@@ -52,9 +98,11 @@ interface Props {
     <div class="flex flex-col gap-8">
       <a href="/" class="mobile-link text-xl font-black text-slate-600 hover:text-primary transition-colors border-b-2 border-slate-100 pb-3">Inicio</a>
       <a href="/transporte" class="mobile-link text-xl font-black text-slate-600 hover:text-primary transition-colors border-b-2 border-slate-100 pb-3">Transporte</a>
-      <a href="/farmacia" class="mobile-link text-xl font-black text-slate-600 hover:text-primary transition-colors border-b-2 border-slate-100 pb-3">Farmacias</a>
       <a href="/punto-limpio" class="mobile-link text-xl font-black text-slate-600 hover:text-primary transition-colors border-b-2 border-slate-100 pb-3">Punto Limpio</a>
-      <a href="/farmacia" class="mobile-link btn-primary justify-center py-5 text-base">Ver Guardia Hoy</a>
+      <a href="/farmacia" class="mobile-link btn-primary justify-center py-5 text-base flex items-center gap-3">
+        <span class="w-3 h-3 rounded-full bg-white animate-pulse shadow-[0_0_10px_white]"></span>
+        Guardia: {displayName}
+      </a>
     </div>
   </div>
 </header>
