@@ -76,15 +76,21 @@ export const prerender = true;
 				id="transport-switcher"
 			>
 				<button
-					class="relative z-20 flex-1 px-6 py-3 text-sm font-bold transition-colors switcher-btn active cursor-pointer touch-manipulation"
+					class="relative z-20 flex-1 px-6 py-3 text-xs sm:text-sm font-bold transition-colors switcher-btn active cursor-pointer"
 					data-target="m216">Bus M-216 (Sevilla)</button
 				>
 				<button
-					class="relative z-20 flex-1 px-6 py-3 text-sm font-bold transition-colors switcher-btn cursor-pointer touch-manipulation"
+					class="relative z-20 flex-1 px-6 py-3 text-xs sm:text-sm font-bold transition-colors switcher-btn cursor-pointer"
 					data-target="minibus">Minibús (Estación)</button
 				>
+				<!-- Botón especial Feria (derecha) -->
+				<button
+					id="feria-btn"
+					class="relative z-20 flex-1 px-6 py-3 text-xs sm:text-sm font-bold transition-colors switcher-btn hidden cursor-pointer"
+					data-target="feria">Feria</button
+				>
 				<div
-					class="absolute top-1.5 left-1.5 bottom-1.5 w-[calc(50%-0.375rem)] bg-white rounded-full shadow-lg transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] switcher-indicator translate-x-0 pointer-events-none"
+					class="absolute top-1.5 left-1.5 bottom-1.5 w-[calc(50%-0.375rem)] bg-white rounded-full shadow-lg transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] switcher-indicator translate-x-0 pointer-events-none"
 					id="indicator"
 				>
 				</div>
@@ -97,88 +103,89 @@ export const prerender = true;
 				class="tab-content transition-all duration-500 opacity-100 scale-100 block"
 			>
 				<BusCard bus={busData.m216} />
-
-				<!-- Tarjeta Especial Feria -->
-				<div id="feria-special-card" class="hidden mt-10 animate-fade">
-					<div class="bg-linear-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-3xl p-8 shadow-xl shadow-amber-200/20 overflow-hidden relative group">
-						<!-- Decorative pattern -->
-						<div class="absolute -top-10 -right-10 w-40 h-40 bg-amber-200 opacity-20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700"></div>
-						
-						<div class="relative z-10">
-							<div class="flex items-center gap-4 mb-6">
-								<div class="bg-amber-500 text-white w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/30 text-2xl">
-									🎡
-								</div>
-								<div>
-									<h3 class="text-2xl font-black text-amber-950 tracking-tight">Autobús Especial Feria</h3>
-									<p class="text-xs font-bold text-amber-700 uppercase tracking-widest mt-1">Servicio Temporal 2026</p>
-								</div>
-							</div>
-
-							<p class="text-amber-900/80 mb-8 leading-relaxed font-medium">
-								Durante la semana de la Feria de Abril de Sevilla, se habilita este servicio especial con paradas en Cantillana, Villaverde y Brenes.
-							</p>
-
-							<div class="grid grid-cols-1 sm:grid-cols-2 gap-8 bg-white/50 backdrop-blur-sm rounded-2xl p-6 border border-amber-200/50">
-								<div>
-									<div class="flex items-center gap-2 mb-4">
-										<div class="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></div>
-										<p class="text-sm font-black text-amber-950 uppercase tracking-tight">Salidas Cantillana</p>
-									</div>
-									<ul class="space-y-3">
-										<li class="flex justify-between items-center text-sm">
-											<span class="text-amber-800 font-bold">Jueves 23:</span>
-											<span class="bg-amber-100 px-3 py-1 rounded-lg text-amber-950 font-black">16:00h</span>
-										</li>
-										<li class="flex justify-between items-center text-sm">
-											<span class="text-amber-800 font-bold">Viernes 24:</span>
-											<span class="bg-amber-100 px-3 py-1 rounded-lg text-amber-950 font-black">16:00h y 23:00h</span>
-										</li>
-										<li class="flex justify-between items-center text-sm">
-											<span class="text-amber-800 font-bold">Sábado 25:</span>
-											<span class="bg-amber-100 px-3 py-1 rounded-lg text-amber-950 font-black">16:00h</span>
-										</li>
-									</ul>
-								</div>
-								<div class="border-t sm:border-t-0 sm:border-l border-amber-200/50 pt-6 sm:pt-0 sm:pl-8">
-									<div class="flex items-center gap-2 mb-4">
-										<div class="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
-										<p class="text-sm font-black text-amber-950 uppercase tracking-tight">Regresos (Feria)</p>
-									</div>
-									<ul class="space-y-3">
-										<li class="flex justify-between items-center text-sm">
-											<span class="text-amber-800 font-bold">Vie 24:</span>
-											<span class="bg-orange-100 px-3 py-1 rounded-lg text-orange-950 font-black">00:30h y 08:00h</span>
-										</li>
-										<li class="flex justify-between items-center text-sm">
-											<span class="text-amber-800 font-bold">Sáb 25:</span>
-											<span class="bg-orange-100 px-3 py-1 rounded-lg text-orange-950 font-black">00:30h y 06:00h</span>
-										</li>
-										<li class="flex justify-between items-center text-sm">
-											<span class="text-amber-800 font-bold">Dom 26:</span>
-											<span class="bg-orange-100 px-3 py-1 rounded-lg text-orange-950 font-black">01:00h</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-							
-							<div class="mt-6 flex items-center gap-2 text-[10px] text-amber-700 font-bold uppercase tracking-widest bg-amber-100/50 w-fit px-4 py-2 rounded-full border border-amber-200/50">
-								<span class="relative flex h-2 w-2">
-									<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-									<span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
-								</span>
-								Servicio independiente al M-216
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
+
 			<div
 				id="content-minibus"
 				class="tab-content transition-all duration-500 opacity-0 scale-95 hidden"
 			>
 				<BusCard bus={busData.minibus} />
 			</div>
+
+			<!-- Pestaña Especial Feria (Estilo BusCard) -->
+			<div
+				id="content-feria"
+				class="tab-content transition-all duration-500 opacity-0 scale-95 hidden"
+			>
+				<div class="bg-white rounded-[2.5rem] p-6 sm:p-10 shadow-2xl shadow-slate-200/60 border border-slate-100 relative overflow-hidden" id="feria-card">
+					<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10">
+						<div class="flex items-center gap-5">
+							<div class="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center text-3xl shadow-sm border border-amber-200/50">
+								🎡
+							</div>
+							<div>
+								<h3 class="text-2xl font-black text-slate-800 tracking-tight">Autobús Especial Feria</h3>
+								<p class="text-xs font-bold text-amber-600 uppercase tracking-widest mt-1">Refuerzos Temporales 2026</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- PRÓXIMO AUTOBÚS FERIA -->
+					<div class="bg-linear-to-br from-amber-500 to-orange-600 rounded-[2rem] p-8 text-white mb-10 shadow-xl shadow-amber-500/20 relative overflow-hidden group">
+						<div class="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform duration-700">
+							<span class="text-8xl">🎡</span>
+						</div>
+						<div class="relative z-10 text-center">
+							<span class="text-[10px] font-black uppercase tracking-[0.2em] opacity-80 mb-4 block">Próximo Autobús Especial</span>
+							<div class="text-6xl font-black tracking-tighter mb-2 feria-next-time">--:--</div>
+							<div class="text-sm font-medium opacity-90 feria-countdown">Calculando...</div>
+						</div>
+					</div>
+
+					<!-- Selector de Dirección -->
+					<div class="flex p-1.5 bg-slate-100 rounded-2xl mb-8 w-fit" id="feria-dir-switcher">
+						<button class="px-5 py-2.5 text-xs font-bold rounded-xl transition-all active bg-white shadow-sm text-amber-700" data-dir="Cantillana ➔ Sevilla">
+							Cantillana ➔ Sevilla
+						</button>
+						<button class="px-5 py-2.5 text-xs font-bold rounded-xl transition-all text-slate-500" data-dir="Sevilla ➔ Cantillana">
+							Sevilla ➔ Cantillana
+						</button>
+					</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-slate-100">
+						<div class="space-y-4">
+							<p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Información del Servicio</p>
+							<p class="text-sm text-slate-600 leading-relaxed">
+								Este es un servicio especial de feria. Consulta la tabla completa de horarios debajo si no hay buses próximos hoy.
+							</p>
+						</div>
+						<div class="bg-amber-50 rounded-2xl p-6 border border-amber-100">
+							<p class="text-xs font-bold text-amber-800 uppercase tracking-widest mb-4">Tabla Completa de Horarios</p>
+							<div class="grid grid-cols-2 gap-4 text-[10px]">
+								<div class="space-y-2">
+									<p class="font-bold text-amber-900">Salidas:</p>
+									<ul class="text-amber-800/80 space-y-1">
+										<li>Jue 23: 16:00</li>
+										<li>Vie 24: 16:00, 23:00</li>
+										<li>Sáb 25: 16:00</li>
+									</ul>
+								</div>
+								<div class="space-y-2">
+									<p class="font-bold text-amber-900">Regresos:</p>
+									<ul class="text-amber-800/80 space-y-1">
+										<li>Vie 24: 00:30, 08:00</li>
+										<li>Sáb 25: 00:30, 06:00</li>
+										<li>Dom 26: 01:00</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
 		</div>
 	</section>
 </Layout>
@@ -189,17 +196,26 @@ export const prerender = true;
 		if (!switcherContainer) return;
 
 		const tabContents = document.querySelectorAll(".tab-content");
-		const buttons = switcherContainer.querySelectorAll(".switcher-btn");
+		const buttons = Array.from(switcherContainer.querySelectorAll(".switcher-btn"));
 		const indicator = switcherContainer.querySelector("#indicator");
 
-		// Single listener on the container
+		const updateIndicator = (target) => {
+			if (!indicator) return;
+			const visibleButtons = buttons.filter(b => !b.classList.contains('hidden'));
+			const btnIndex = visibleButtons.findIndex(b => b.getAttribute('data-target') === target);
+			if (btnIndex === -1) return;
+			
+			const width = 100 / visibleButtons.length;
+			indicator.style.width = `calc(${width}% - 0.375rem)`;
+			indicator.style.transform = `translateX(${btnIndex * 100}%)`;
+		};
+
 		switcherContainer.onclick = (e) => {
 			const btn = e.target.closest(".switcher-btn");
 			if (!btn) return;
 
 			const target = btn.getAttribute("data-target");
 
-			// Update buttons
 			buttons.forEach((b) => {
 				b.classList.remove("active", "text-primary");
 				b.classList.add("text-slate-500");
@@ -207,7 +223,6 @@ export const prerender = true;
 			btn.classList.add("active", "text-primary");
 			btn.classList.remove("text-slate-500");
 
-			// Update content
 			tabContents.forEach((content) => {
 				if (content.id === `content-${target}`) {
 					content.classList.remove("hidden", "opacity-0", "scale-95");
@@ -218,37 +233,101 @@ export const prerender = true;
 				}
 			});
 
-			// Update indicator position
-			if (indicator) {
-				indicator.style.transform = target === "minibus" ? "translateX(100%)" : "translateX(0%)";
-			}
+			updateIndicator(target);
 		};
+
+		const activeBtn = buttons.find(b => b.classList.contains('active'));
+		if (activeBtn) updateIndicator(activeBtn.getAttribute('data-target'));
 	}
 
-	// Initialize
-	initSwitcher();
-	
-	// Prevent double listeners on global object
-	if (!window.switcherEventSet) {
-		const initFeriaCard = () => {
-			const feriaCard = document.getElementById("feria-special-card");
-			if (!feriaCard) return;
+	function initFeriaCard() {
+		const feriaBtn = document.getElementById("feria-btn");
+		if (!feriaBtn) return;
 
-			const now = new Date();
-			const FERIA_DATES = ['2026-04-21', '2026-04-22', '2026-04-23', '2026-04-24', '2026-04-25', '2026-04-26'];
-			const todayStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
-			
-			if (FERIA_DATES.includes(todayStr)) {
-				feriaCard.classList.remove("hidden");
-			} else {
-				feriaCard.classList.add("hidden");
-			}
+		const now = new Date();
+		const todayStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+		const FERIA_DATES = ['2026-04-21', '2026-04-22', '2026-04-23', '2026-04-24', '2026-04-25', '2026-04-26'];
+		
+		if (FERIA_DATES.includes(todayStr)) {
+			feriaBtn.classList.remove("hidden");
+		} else {
+			feriaBtn.classList.add("hidden");
+		}
+		
+		initSwitcher();
+		setupFeriaLogic();
+	}
+
+	function setupFeriaLogic() {
+		const feriaCard = document.getElementById('feria-card');
+		if (!feriaCard) return;
+
+		const FERIA_SCHEDULE = {
+			'2026-04-23': { 'Cantillana ➔ Sevilla': ['16:00'], 'Sevilla ➔ Cantillana': [] },
+			'2026-04-24': { 'Cantillana ➔ Sevilla': ['16:00', '23:00'], 'Sevilla ➔ Cantillana': ['00:30', '08:00'] },
+			'2026-04-25': { 'Cantillana ➔ Sevilla': ['16:00'], 'Sevilla ➔ Cantillana': ['00:30', '06:00'] },
+			'2026-04-26': { 'Cantillana ➔ Sevilla': [], 'Sevilla ➔ Cantillana': ['01:00'] }
 		};
 
-		initFeriaCard();
+		let currentFeriaDir = "Cantillana ➔ Sevilla";
 
+		function updateFeriaTimes() {
+			const now = new Date();
+			const todayStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+			const currentTimeMinutes = now.getHours() * 60 + now.getMinutes();
+			
+			const todaySchedule = FERIA_SCHEDULE[todayStr]?.[currentFeriaDir] || [];
+			let nextTime = null;
+
+			todaySchedule.forEach(timeStr => {
+				const [h, m] = timeStr.split(':').map(Number);
+				const busMinutes = h * 60 + m;
+				if (busMinutes > currentTimeMinutes) {
+					if (!nextTime || busMinutes < nextTime.minutes) {
+						nextTime = { str: timeStr, minutes: busMinutes };
+					}
+				}
+			});
+
+			const timeDisplay = feriaCard.querySelector('.feria-next-time');
+			const countdownDisplay = feriaCard.querySelector('.feria-countdown');
+
+			if (nextTime) {
+				timeDisplay.textContent = nextTime.str;
+				const diff = nextTime.minutes - currentTimeMinutes;
+				const h = Math.floor(diff / 60);
+				const m = diff % 60;
+				countdownDisplay.textContent = diff < 60 ? `en ${m} min` : `en ${h}h ${m}m`;
+			} else {
+				timeDisplay.textContent = "--:--";
+				countdownDisplay.textContent = "No hay más buses hoy";
+			}
+		}
+
+		// Direction switcher
+		const dirButtons = document.querySelectorAll('#feria-dir-switcher button');
+		dirButtons.forEach(btn => {
+			btn.onclick = () => {
+				dirButtons.forEach(b => {
+					b.classList.remove('bg-white', 'shadow-sm', 'text-amber-700');
+					b.classList.add('text-slate-500');
+				});
+				btn.classList.add('bg-white', 'shadow-sm', 'text-amber-700');
+				btn.classList.remove('text-slate-500');
+				currentFeriaDir = btn.getAttribute('data-dir');
+				updateFeriaTimes();
+			};
+		});
+
+		updateFeriaTimes();
+		if (window.feriaInterval) clearInterval(window.feriaInterval);
+		window.feriaInterval = setInterval(updateFeriaTimes, 30000);
+	}
+
+	initFeriaCard();
+
+	if (!window.switcherEventSet) {
 		document.addEventListener("astro:after-swap", () => {
-			initSwitcher();
 			initFeriaCard();
 		});
 		window.switcherEventSet = true;
