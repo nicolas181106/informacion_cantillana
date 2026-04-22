@@ -68,6 +68,7 @@ export const prerender = true;
 			</p>
 		</div>
 
+
 		<!-- Switcher Moderno -->
 		<div class="flex justify-center mb-12 animate-fade">
 			<div
@@ -96,6 +97,81 @@ export const prerender = true;
 				class="tab-content transition-all duration-500 opacity-100 scale-100 block"
 			>
 				<BusCard bus={busData.m216} />
+
+				<!-- Tarjeta Especial Feria -->
+				<div id="feria-special-card" class="hidden mt-10 animate-fade">
+					<div class="bg-linear-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-3xl p-8 shadow-xl shadow-amber-200/20 overflow-hidden relative group">
+						<!-- Decorative pattern -->
+						<div class="absolute -top-10 -right-10 w-40 h-40 bg-amber-200 opacity-20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700"></div>
+						
+						<div class="relative z-10">
+							<div class="flex items-center gap-4 mb-6">
+								<div class="bg-amber-500 text-white w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/30 text-2xl">
+									🎡
+								</div>
+								<div>
+									<h3 class="text-2xl font-black text-amber-950 tracking-tight">Autobús Especial Feria</h3>
+									<p class="text-xs font-bold text-amber-700 uppercase tracking-widest mt-1">Servicio Temporal 2026</p>
+								</div>
+							</div>
+
+							<p class="text-amber-900/80 mb-8 leading-relaxed font-medium">
+								Durante la semana de la Feria de Abril de Sevilla, se habilita este servicio especial con paradas en Cantillana, Villaverde y Brenes.
+							</p>
+
+							<div class="grid grid-cols-1 sm:grid-cols-2 gap-8 bg-white/50 backdrop-blur-sm rounded-2xl p-6 border border-amber-200/50">
+								<div>
+									<div class="flex items-center gap-2 mb-4">
+										<div class="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></div>
+										<p class="text-sm font-black text-amber-950 uppercase tracking-tight">Salidas Cantillana</p>
+									</div>
+									<ul class="space-y-3">
+										<li class="flex justify-between items-center text-sm">
+											<span class="text-amber-800 font-bold">Jueves 23:</span>
+											<span class="bg-amber-100 px-3 py-1 rounded-lg text-amber-950 font-black">16:00h</span>
+										</li>
+										<li class="flex justify-between items-center text-sm">
+											<span class="text-amber-800 font-bold">Viernes 24:</span>
+											<span class="bg-amber-100 px-3 py-1 rounded-lg text-amber-950 font-black">16:00h y 23:00h</span>
+										</li>
+										<li class="flex justify-between items-center text-sm">
+											<span class="text-amber-800 font-bold">Sábado 25:</span>
+											<span class="bg-amber-100 px-3 py-1 rounded-lg text-amber-950 font-black">16:00h</span>
+										</li>
+									</ul>
+								</div>
+								<div class="border-t sm:border-t-0 sm:border-l border-amber-200/50 pt-6 sm:pt-0 sm:pl-8">
+									<div class="flex items-center gap-2 mb-4">
+										<div class="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
+										<p class="text-sm font-black text-amber-950 uppercase tracking-tight">Regresos (Feria)</p>
+									</div>
+									<ul class="space-y-3">
+										<li class="flex justify-between items-center text-sm">
+											<span class="text-amber-800 font-bold">Vie 24:</span>
+											<span class="bg-orange-100 px-3 py-1 rounded-lg text-orange-950 font-black">00:30h y 08:00h</span>
+										</li>
+										<li class="flex justify-between items-center text-sm">
+											<span class="text-amber-800 font-bold">Sáb 25:</span>
+											<span class="bg-orange-100 px-3 py-1 rounded-lg text-orange-950 font-black">00:30h y 06:00h</span>
+										</li>
+										<li class="flex justify-between items-center text-sm">
+											<span class="text-amber-800 font-bold">Dom 26:</span>
+											<span class="bg-orange-100 px-3 py-1 rounded-lg text-orange-950 font-black">01:00h</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+							
+							<div class="mt-6 flex items-center gap-2 text-[10px] text-amber-700 font-bold uppercase tracking-widest bg-amber-100/50 w-fit px-4 py-2 rounded-full border border-amber-200/50">
+								<span class="relative flex h-2 w-2">
+									<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+									<span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+								</span>
+								Servicio independiente al M-216
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div
 				id="content-minibus"
@@ -154,8 +230,26 @@ export const prerender = true;
 	
 	// Prevent double listeners on global object
 	if (!window.switcherEventSet) {
+		const initFeriaCard = () => {
+			const feriaCard = document.getElementById("feria-special-card");
+			if (!feriaCard) return;
+
+			const now = new Date();
+			const FERIA_DATES = ['2026-04-21', '2026-04-22', '2026-04-23', '2026-04-24', '2026-04-25', '2026-04-26'];
+			const todayStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+			
+			if (FERIA_DATES.includes(todayStr)) {
+				feriaCard.classList.remove("hidden");
+			} else {
+				feriaCard.classList.add("hidden");
+			}
+		};
+
+		initFeriaCard();
+
 		document.addEventListener("astro:after-swap", () => {
 			initSwitcher();
+			initFeriaCard();
 		});
 		window.switcherEventSet = true;
 	}
