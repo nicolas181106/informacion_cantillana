@@ -40,7 +40,7 @@ const { bus } = Astro.props;
     </div>
     
     <div class="grid grid-cols-1 gap-3 border-t border-amber-200/50 pt-4">
-      <p class="text-[10px] font-bold text-amber-900/40 uppercase tracking-widest mb-1">Refuerzos Confirmados (M-216):</p>
+      <p class="text-[10px] font-bold text-amber-900/40 uppercase tracking-widest mb-1">Horarios Autobús Especial:</p>
       <div class="grid grid-cols-2 gap-4">
         <div class="space-y-2">
           <p class="text-[11px] font-bold text-amber-900">Salidas Cantillana:</p>
@@ -112,16 +112,6 @@ const { bus } = Astro.props;
       const FERIA_DATES = ['2026-04-21', '2026-04-22', '2026-04-23', '2026-04-24', '2026-04-25', '2026-04-26'];
       const SPECIAL_HOLIDAYS = ['2026-04-22']; // Solo el miércoles es festivo oficial en Sevilla
       
-      // Refuerzos específicos de la foto
-      const REINFORCEMENTS = {
-        'm216': {
-          '2026-04-23': { 'Cantillana ➔ Sevilla': ['16:00'] },
-          '2026-04-24': { 'Cantillana ➔ Sevilla': ['16:00', '23:00'], 'Sevilla ➔ Cantillana': ['00:30', '08:00'] },
-          '2026-04-25': { 'Cantillana ➔ Sevilla': ['16:00'], 'Sevilla ➔ Cantillana': ['00:30', '06:00'] },
-          '2026-04-26': { 'Sevilla ➔ Cantillana': ['01:00'] }
-        }
-      };
-      
       const todayStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
       const isFeria = FERIA_DATES.includes(todayStr);
       const isSpecialHoliday = SPECIAL_HOLIDAYS.includes(todayStr);
@@ -143,14 +133,14 @@ const { bus } = Astro.props;
         let nextDirection = "";
 
         // Function to check and update nextTime
-        const checkTimes = (times, direction, isRefuerzo = false) => {
+        const checkTimes = (times, direction) => {
           for (const timeStr of times) {
             const [h, m] = timeStr.split(':').map(Number);
             const busTimeMinutes = h * 60 + m;
             
             if (busTimeMinutes > currentTimeMinutes) {
               if (nextTime === null || busTimeMinutes < nextTime.minutes) {
-                nextTime = { str: timeStr, minutes: busTimeMinutes, isRefuerzo };
+                nextTime = { str: timeStr, minutes: busTimeMinutes };
                 nextDirection = direction || "";
               }
             }
@@ -171,18 +161,9 @@ const { bus } = Astro.props;
           const isTargetWeekend = days?.includes('Sábados') || days?.includes('Domingos');
           
           if ((isWeekend && isTargetWeekend) || (!isWeekend && !isTargetWeekend)) {
-            checkTimes(times, direction, false);
+            checkTimes(times, direction);
           }
         });
-
-        // 2. Inyectar refuerzos si los hay para este bus y hoy
-        const todayRefuerzos = REINFORCEMENTS[busId]?.[todayStr];
-        if (todayRefuerzos) {
-          Object.entries(todayRefuerzos).forEach(([direction, times]) => {
-            if (activeDir && direction !== activeDir) return;
-            checkTimes(times, direction, true);
-          });
-        }
 
         const timeElement = display.querySelector('.time');
         const countdownElement = display.querySelector('.countdown');
@@ -194,20 +175,6 @@ const { bus } = Astro.props;
           const h = Math.floor(diff / 60);
           const m = diff % 60;
           countdownElement.textContent = diff < 60 ? `en ${m} min (${nextDirection})` : `en ${h}h ${m}m (${nextDirection})`;
-          
-          if (nextTime.isRefuerzo) {
-            nextBusBox.classList.remove('from-primary', 'to-primary-light', 'text-white');
-            nextBusBox.classList.add('bg-amber-50', 'border-2', 'border-amber-200', 'text-amber-900');
-            badgeElement.textContent = "✨ REFUERZO FERIA";
-            badgeElement.classList.remove('opacity-80');
-            badgeElement.classList.add('text-amber-700');
-          } else {
-            nextBusBox.classList.add('from-primary', 'to-primary-light', 'text-white');
-            nextBusBox.classList.remove('bg-amber-50', 'border-2', 'border-amber-200', 'text-amber-900');
-            badgeElement.textContent = "PRÓXIMO AUTOBÚS";
-            badgeElement.classList.add('opacity-80');
-            badgeElement.classList.remove('text-amber-700');
-          }
         } else if (timeElement && countdownElement) {
           timeElement.textContent = "--:--";
           countdownElement.textContent = "Servicio finalizado hoy";
@@ -221,9 +188,9 @@ const { bus } = Astro.props;
             const statusText = feriaNotice.querySelector('.status-text');
             if (statusText) {
               if (isSpecialHoliday) {
-                statusText.innerHTML = "Hoy se aplica el horario de <strong>Festivos</strong>. Revisa los refuerzos abajo.";
+                statusText.innerHTML = "Hoy se aplica el horario de <strong>Festivos</strong> en el M-216. Revisa el bus especial abajo.";
               } else {
-                statusText.innerHTML = "Semana de Feria. Horario de <strong>Laborables</strong> con refuerzos especiales.";
+                statusText.innerHTML = "Semana de Feria. El M-216 opera normal, pero hay un bus especial de refuerzo.";
               }
             }
           } else {
