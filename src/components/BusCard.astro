@@ -165,7 +165,9 @@ const { bus } = Astro.props;
           
           if (activeDir && direction !== activeDir) return;
 
-          const isWeekend = currentDay === 0 || currentDay === 6 || isSpecialHoliday;
+          // El minibús NO se ve afectado por los festivos de Sevilla (Feria)
+          const isMinibus = busId === 'minibus';
+          const isWeekend = currentDay === 0 || currentDay === 6 || (!isMinibus && isSpecialHoliday);
           const isTargetWeekend = days?.includes('Sábados') || days?.includes('Domingos');
           
           if ((isWeekend && isTargetWeekend) || (!isWeekend && !isTargetWeekend)) {
