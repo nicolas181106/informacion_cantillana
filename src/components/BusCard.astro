@@ -78,7 +78,7 @@ const { bus } = Astro.props;
       
       // Configuración de Festivos Especiales (Feria 2026)
       const FERIA_DATES = ['2026-04-21', '2026-04-22', '2026-04-23', '2026-04-24', '2026-04-25', '2026-04-26'];
-      const SPECIAL_HOLIDAYS = ['2026-04-22']; // Solo el miércoles es festivo oficial en Sevilla
+      const SPECIAL_HOLIDAYS = ['2026-04-22', '2026-04-23', '2026-04-24']; // Miércoles, Jueves y Viernes de Feria
       
       const todayStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
       const isFeria = FERIA_DATES.includes(todayStr);
@@ -128,8 +128,19 @@ const { bus } = Astro.props;
           const isWeekend = currentDay === 0 || currentDay === 6 || (!isMinibus && isSpecialHoliday);
           const isTargetWeekend = days?.includes('Sábados') || days?.includes('Domingos');
           
+          const scheduleSection = list.closest('.schedule-section');
+          const header = scheduleSection?.querySelector('h4');
           if ((isWeekend && isTargetWeekend) || (!isWeekend && !isTargetWeekend)) {
             checkTimes(times, direction);
+            if (header) {
+              header.classList.add('bg-primary/10', 'text-primary', 'border-primary/20');
+              header.classList.remove('bg-slate-100', 'text-slate-600');
+            }
+          } else {
+            if (header) {
+              header.classList.remove('bg-primary/10', 'text-primary', 'border-primary/20');
+              header.classList.add('bg-slate-100', 'text-slate-600');
+            }
           }
         });
 
