@@ -76,12 +76,28 @@ const { bus } = Astro.props;
     function updateBusTimes() {
       const now = new Date();
       
-      // Configuración de Festivos Especiales (Feria 2026)
-      const FERIA_DATES = ['2026-04-21', '2026-04-22', '2026-04-23', '2026-04-24', '2026-04-25', '2026-04-26'];
-      const SPECIAL_HOLIDAYS = ['2026-04-22', '2026-04-23', '2026-04-24']; // Miércoles, Jueves y Viernes de Feria
+      // Configuración de Festivos 2026 (Nacionales, Andalucía y Locales)
+      const NATIONAL_HOLIDAYS = [
+        '2026-01-01', // Año Nuevo
+        '2026-01-06', // Epifanía del Señor
+        '2026-02-28', // Día de Andalucía
+        '2026-04-02', // Jueves Santo
+        '2026-04-03', // Viernes Santo
+        '2026-05-01', // Fiesta del Trabajo
+        '2026-05-25', // Lunes de Romería (Local Cantillana)
+        '2026-08-15', // Asunción de la Virgen
+        '2026-09-08', // Ntra. Sra. de la Soledad (Local Cantillana)
+        '2026-10-12', // Fiesta Nacional de España
+        '2026-11-02', // Lunes tras Todos los Santos
+        '2026-12-07', // Lunes tras la Constitución
+        '2026-12-08', // Inmaculada Concepción
+        '2026-12-25'  // Natividad del Señor
+      ];
+
+      // Configuración de Festivos Especiales
+      const SPECIAL_HOLIDAYS = NATIONAL_HOLIDAYS; // Se aplican los festivos nacionales y locales
       
       const todayStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
-      const isFeria = FERIA_DATES.includes(todayStr);
       const isSpecialHoliday = SPECIAL_HOLIDAYS.includes(todayStr);
 
       const currentDay = now.getDay();
@@ -123,9 +139,7 @@ const { bus } = Astro.props;
           
           if (activeDir && direction !== activeDir) return;
 
-          // El minibús NO se ve afectado por los festivos de Sevilla (Feria)
-          const isMinibus = busId === 'minibus';
-          const isWeekend = currentDay === 0 || currentDay === 6 || (!isMinibus && isSpecialHoliday);
+          const isWeekend = currentDay === 0 || currentDay === 6 || isSpecialHoliday;
           const isTargetWeekend = days?.includes('Sábados') || days?.includes('Domingos');
           
           const scheduleSection = list.closest('.schedule-section');
