@@ -38,9 +38,12 @@ if (hourInt < 9 || (hourInt === 9 && minuteInt < 30)) {
   yearInt = parseInt(getYPart('year'));
 }
 
-const isApril2026 = monthInt === 4 && yearInt === 2026;
-const pharmacyKey = isApril2026 ? pharmData.calendar.days[dayInt.toString() as keyof typeof pharmData.calendar.days] : null;
-const activePharmacy = pharmacyKey ? pharmData.pharmacies[pharmacyKey as keyof typeof pharmData.pharmacies] : null;
+const dateKey = `${yearInt}-${monthInt.toString().padStart(2, '0')}-${dayInt.toString().padStart(2, '0')}`;
+const exceptionKey = (pharmData.calendar as any).exceptions?.[dateKey];
+
+const isCalendarMonth = monthInt === pharmData.calendar.monthNumber && yearInt === pharmData.calendar.year;
+const pharmacyKey = exceptionKey || (isCalendarMonth ? (pharmData.calendar.days as any)[dayInt.toString()] : null);
+const activePharmacy = pharmacyKey ? (pharmData.pharmacies as any)[pharmacyKey] : null;
 
 // Extraer un nombre corto para el botón
 const displayName = activePharmacy 

@@ -40,9 +40,15 @@ const day = dayInt.toString();
 const month = monthInt;
 const year = yearInt;
 
-const isApril2026 = month === 4 && year === 2026;
-const pharmacyKey = isApril2026 ? pharmData.calendar.days[day as keyof typeof pharmData.calendar.days] : null;
-const activePharmacy = pharmacyKey ? pharmData.pharmacies[pharmacyKey as keyof typeof pharmData.pharmacies] : null;
+const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+const currentMonthName = monthNames[monthInt - 1];
+
+const dateKey = `${year}-${monthInt.toString().padStart(2, '0')}-${dayInt.toString().padStart(2, '0')}`;
+const exceptionKey = (pharmData.calendar as any).exceptions?.[dateKey];
+
+const isCalendarMonth = month === pharmData.calendar.monthNumber && year === pharmData.calendar.year;
+const pharmacyKey = exceptionKey || (isCalendarMonth ? (pharmData.calendar.days as any)[day] : null);
+const activePharmacy = pharmacyKey ? (pharmData.pharmacies as any)[pharmacyKey] : null;
 
 const calendarEntries = Object.entries(pharmData.calendar.days).map(([d, key]) => ({
   day: d,
@@ -60,7 +66,7 @@ const calendarEntries = Object.entries(pharmData.calendar.days).map(([d, key]) =
       <div class="w-2.5 h-2.5 rounded-full bg-green-400 border-2 border-white shadow-[0_0_10px_rgba(74,222,128,0.8)]"></div>
       <span class="text-[0.65rem] font-black uppercase tracking-widest">En Guardia Ahora</span>
     </div>
-    <span class="text-sm font-bold text-slate-500 bg-white/50 px-4 py-2 rounded-lg border border-white/40">{day} de Abril, {year}</span>
+    <span class="text-sm font-bold text-slate-500 bg-white/50 px-4 py-2 rounded-lg border border-white/40">{day} de {currentMonthName}, {year}</span>
   </div>
 
   {activePharmacy ? (
@@ -94,7 +100,7 @@ const calendarEntries = Object.entries(pharmData.calendar.days).map(([d, key]) =
       <summary class="flex items-center justify-between cursor-pointer list-none text-primary font-bold hover:opacity-80 transition-opacity">
         <div class="flex items-center gap-2">
           <span class="text-xl">📅</span>
-          <span>Calendario Completo de Abril</span>
+          <span>Calendario Completo de {pharmData.calendar.month}</span>
         </div>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform group-open/calendar:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
